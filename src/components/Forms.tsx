@@ -16,12 +16,22 @@ export default function Forms(props: FormsProps) {
     return (
         <div>
             {id ? (<Input onlyToRead text="ID" value={id}></Input>) : false}
-            <Input text="Product" value={product} onChanged={setProduct} className="mb-4"></Input>
-            <Input text="Price" value={price} onChanged={setPrice} className="mb-4"></Input>
+            <Input text="Product"
+                   value={product}
+                   onChanged={setProduct}
+                   className="mb-4"></Input>
+
+            <Input text="Price"
+                   value={price}
+                   onChanged={setPrice}
+                   className="mb-4"></Input>
+
             <div className="flex justify-end mt-3">
-                <Button onClick={() => props.productChanged?.(new Product(id, product, price))} className="mr-5">
+                <Button onClick={() => props.productChanged?.(new Product(id, product, price))}
+                        className="mr-5">
                     {id ? 'Edit' : 'Save'}
                 </Button>
+                
                 <Button onClick={props.isCanceled}>
                     Cancelar
                 </Button>

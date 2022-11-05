@@ -9,6 +9,9 @@ import Table from '../components/Table'
 import Product from '../core/Product'
 
 const Home: NextPage = () => {
+  const [producState, setProductState] = useState<Product>(Product.void())
+  const [visibleState, setVisibleState] = useState<'table' | 'form'>('table')
+
   const valueProducts = [
     new Product('1', 'Coffee', 2),
     new Product('2', 'Milk', 2),
@@ -16,11 +19,10 @@ const Home: NextPage = () => {
     new Product('4', 'Candy', 0.5),
     new Product('5', 'Snack', 1.5),
   ]
-
-  const [visible, setVisible] = useState<'table' | 'form'>('table')
-
+  
   function selectedProduct(product: Product) {
-    
+    setProductState(product)
+    setVisibleState('form')
   }
 
   function removedProduct(product: Product) {
@@ -28,22 +30,35 @@ const Home: NextPage = () => {
   }
 
   function saveProduct(product: Product) {
-    console.log(`Salvar cliente ${product.getProduct}`)
+    console.log(`Salvar produto ${product.getProduct}`)
+    setVisibleState('table')
+  }
+
+  function newProduct() {
+    setProductState(Product.void())
+    setVisibleState('form')
   }
 
   return (
     <div className={`flex justify-center items-center h-screen
     bg-gradient-to-t from-slate-500 to-slate-400`}>
       <Layout title='Register'>
-        {visible === 'table' ? (
+        {visibleState === 'table' ? (
         <>
           <div className='flex justify-end'>
-            <Button onClick={() => setVisible('form')} className='mb-4'>New Product</Button>
+            <Button onClick={() => newProduct()}
+                    className='mb-4'>
+                New Product
+            </Button>
           </div>
-          <Table products={valueProducts} selectedProduct={selectedProduct} removedProduct={removedProduct}></Table>
+          <Table products={valueProducts} 
+                 selectedProduct={selectedProduct}
+                 removedProduct={removedProduct}></Table>
         </>
         )
-        : <Forms product={valueProducts[2]} isCanceled={() => setVisible('table')} productChanged={saveProduct}></Forms>} 
+        : <Forms product={producState}
+                 isCanceled={() => setVisibleState('table')}
+                 productChanged={saveProduct}></Forms>} 
       </Layout>
     </div>
   )
