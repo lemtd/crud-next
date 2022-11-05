@@ -5,6 +5,8 @@ import Input from "./Input";
 
 interface FormsProps {
     product: Product
+    isCanceled?: () => void
+    productChanged?: (product: Product) => void
 }
 
 export default function Forms(props: FormsProps) {
@@ -17,10 +19,10 @@ export default function Forms(props: FormsProps) {
             <Input text="Product" value={product} onChanged={setProduct} className="mb-4"></Input>
             <Input text="Price" value={price} onChanged={setPrice} className="mb-4"></Input>
             <div className="flex justify-end mt-3">
-                <Button className="mr-5">
+                <Button onClick={() => props.productChanged?.(new Product(id, product, price))} className="mr-5">
                     {id ? 'Edit' : 'Save'}
                 </Button>
-                <Button>
+                <Button onClick={props.isCanceled}>
                     Cancelar
                 </Button>
             </div>

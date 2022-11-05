@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useState } from 'react'
 import Button from '../components/Button'
 import Forms from '../components/Forms'
 import Layout from '../components/Layout'
@@ -16,6 +17,8 @@ const Home: NextPage = () => {
     new Product('5', 'Snack', 1.5),
   ]
 
+  const [visible, setVisible] = useState<'table' | 'form'>('table')
+
   function selectedProduct(product: Product) {
     
   }
@@ -24,15 +27,23 @@ const Home: NextPage = () => {
 
   }
 
+  function saveProduct(product: Product) {
+    console.log(`Salvar cliente ${product.getProduct}`)
+  }
+
   return (
     <div className={`flex justify-center items-center h-screen
     bg-gradient-to-t from-slate-500 to-slate-400`}>
       <Layout title='Register'>
-        <div className='flex justify-end'>
-          <Button className='mb-4'>New Product</Button>
-        </div>
-        <Table products={valueProducts} selectedProduct={selectedProduct} removedProduct={removedProduct}></Table>
-        <Forms product={valueProducts[2]}></Forms>
+        {visible === 'table' ? (
+        <>
+          <div className='flex justify-end'>
+            <Button onClick={() => setVisible('form')} className='mb-4'>New Product</Button>
+          </div>
+          <Table products={valueProducts} selectedProduct={selectedProduct} removedProduct={removedProduct}></Table>
+        </>
+        )
+        : <Forms product={valueProducts[2]} isCanceled={() => setVisible('table')} productChanged={saveProduct}></Forms>} 
       </Layout>
     </div>
   )

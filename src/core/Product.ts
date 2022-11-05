@@ -6,7 +6,7 @@ export default class Product {
     constructor(id: string, product: string, price: number) {
         this.id = id
         this.product = product
-        this.price = price
+        this.price = +price
     }
     
     static void() {
