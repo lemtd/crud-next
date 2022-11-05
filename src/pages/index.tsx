@@ -1,52 +1,21 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import ProductsCollection from '../backend/db/ProductsCollection'
-import Products from '../backend/db/ProductsCollection'
 import Button from '../components/Button'
 import Forms from '../components/Forms'
 import Layout from '../components/Layout'
 import Table from '../components/Table'
-import Product from '../core/Product'
-import ProductRepository from '../core/ProductRepository'
+import useProducts from '../hooks/useProducts'
 
 const Home: NextPage = () => {
-  const repo: ProductRepository = new ProductsCollection()
-
-  const [productState, setProductState] = useState<Product>(Product.void())
-  const [valueProductsState, setValueProductsState] = useState<Product[]>([])
-  const [visibleState, setVisibleState] = useState<'table' | 'form'>('table')
-
-  useEffect(getAll, [])
-
-  function getAll() {
-    repo.getAll().then(products => {
-      console.log(`${products.length}`)
-      setValueProductsState(products)
-      setVisibleState('table')
-    })
-  }
-  
-  function selectedProduct(product: Product) {
-    setProductState(product)
-    setVisibleState('form')
-  }
-
-  async function removedProduct(product: Product) {
-    await repo.remove(product)
-    getAll()
-  }
-
-  async function saveProduct(product: Product) {
-    await repo.save(product)
-    getAll()
-  }
-
-  function newProduct() {
-    setProductState(Product.void())
-    setVisibleState('form')
-  }
+  const {
+    productState,
+    valueProductsState,
+    visibleState,
+    setVisibleState,
+    selecteProduct,
+    removeProduct,
+    saveProduct,
+    newProduct
+  } = useProducts()
 
   return (
     <div className={`flex justify-center items-center h-screen
@@ -61,8 +30,8 @@ const Home: NextPage = () => {
             </Button>
           </div>
           <Table products={valueProductsState} 
-                 selectedProduct={selectedProduct}
-                 removedProduct={removedProduct}></Table>
+                 selectedProduct={selecteProduct}
+                 removedProduct={removeProduct}></Table>
         </>
         )
         : <Forms product={productState}
