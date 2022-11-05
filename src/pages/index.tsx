@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Button from '../components/Button'
+import Forms from '../components/Forms'
 import Layout from '../components/Layout'
 import Table from '../components/Table'
 import Product from '../core/Product'
@@ -31,6 +32,7 @@ const Home: NextPage = () => {
           <Button className='mb-4'>New Product</Button>
         </div>
         <Table products={valueProducts} selectedProduct={selectedProduct} removedProduct={removedProduct}></Table>
+        <Forms product={valueProducts[2]}></Forms>
       </Layout>
     </div>
   )
