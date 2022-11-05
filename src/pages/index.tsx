@@ -15,14 +15,15 @@ const Home: NextPage = () => {
   const repo: ProductRepository = new ProductsCollection()
 
   const [productState, setProductState] = useState<Product>(Product.void())
-  const [productsState, setProductsState] = useState<Product[]>([])
+  const [valueProductsState, setValueProductsState] = useState<Product[]>([])
   const [visibleState, setVisibleState] = useState<'table' | 'form'>('table')
 
   useEffect(getAll, [])
 
   function getAll() {
     repo.getAll().then(products => {
-      setProductsState(productsState)
+      console.log(`${products.length}`)
+      setValueProductsState(products)
       setVisibleState('table')
     })
   }
@@ -32,8 +33,9 @@ const Home: NextPage = () => {
     setVisibleState('form')
   }
 
-  function removedProduct(product: Product) {
-
+  async function removedProduct(product: Product) {
+    await repo.remove(product)
+    getAll()
   }
 
   async function saveProduct(product: Product) {
@@ -53,12 +55,12 @@ const Home: NextPage = () => {
         {visibleState === 'table' ? (
         <>
           <div className='flex justify-end'>
-            <Button onClick={() => newProduct()}
+            <Button onClick={newProduct}
                     className='mb-4'>
-                New Product
+                New Product {console.log(valueProductsState.length)}
             </Button>
           </div>
-          <Table products={productsState} 
+          <Table products={valueProductsState} 
                  selectedProduct={selectedProduct}
                  removedProduct={removedProduct}></Table>
         </>

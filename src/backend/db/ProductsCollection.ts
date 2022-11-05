@@ -31,14 +31,14 @@ export default class ProductsCollection implements ProductRepository {
     }
 
     async remove(product: Product): Promise<void> {
-        // console.log(`TESTE3: ${product.getTitle}`)
+        console.log(`TESTE3: ${product.getTitle}`)
         return this.collectionFirebase().doc(product.getId).delete()
     }
 
     async getAll(): Promise<Product[]> {
         const query = await this.collectionFirebase().get()
         // console.log(`TESTE5: ${query.docs.map(doc => doc.data().getTitle) ?? []}`)
-        return query.docs.map(doc => doc.data()) ?? []
+        return query.docs.map(doc => doc.data())
     }
 
     private collectionFirebase() {

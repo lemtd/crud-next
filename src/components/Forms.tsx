@@ -11,7 +11,7 @@ interface FormsProps {
 
 export default function Forms(props: FormsProps) {
     const id = props.product?.getId
-    const [product, setProduct] = useState(props.product?.getProduct ?? '')
+    const [product, setProduct] = useState(props.product?.getTitle ?? '')
     const [price, setPrice] = useState(props.product?.getPrice ?? 0)
     return (
         <div>
@@ -19,7 +19,7 @@ export default function Forms(props: FormsProps) {
             <Input text="Product"
                    value={product}
                    onChanged={setProduct}
-                   className="mb-4"></Input>
+                   className="mb-4 mt-10"></Input>
 
             <Input text="Price"
                    value={price}
