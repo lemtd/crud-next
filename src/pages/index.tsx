@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Button from '../components/Button'
 import Layout from '../components/Layout'
 import Table from '../components/Table'
 import Product from '../core/Product'
@@ -19,13 +20,16 @@ const Home: NextPage = () => {
   }
 
   function removedProduct(product: Product) {
-    
+
   }
 
   return (
     <div className={`flex justify-center items-center h-screen
     bg-gradient-to-t from-slate-500 to-slate-400`}>
       <Layout title='Register'>
+        <div className='flex justify-end'>
+          <Button className='mb-4'>New Product</Button>
+        </div>
         <Table products={valueProducts} selectedProduct={selectedProduct} removedProduct={removedProduct}></Table>
       </Layout>
     </div>
