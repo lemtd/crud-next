@@ -2,7 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import Products from '../backend/db/Products'
+import ProductsCollection from '../backend/db/ProductsCollection'
+import Products from '../backend/db/ProductsCollection'
 import Button from '../components/Button'
 import Forms from '../components/Forms'
 import Layout from '../components/Layout'
@@ -11,7 +12,7 @@ import Product from '../core/Product'
 import ProductRepository from '../core/ProductRepository'
 
 const Home: NextPage = () => {
-  const repo: ProductRepository = new Products()
+  const repo: ProductRepository = new ProductsCollection()
 
   const [productState, setProductState] = useState<Product>(Product.void())
   const [productsState, setProductsState] = useState<Product[]>([])

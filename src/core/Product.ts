@@ -1,11 +1,11 @@
 export default class Product {
     private id: string
-    private product: string
+    private title: string
     private price: number
     
-    constructor(id: string, product: string, price: number) {
+    constructor(id: string, title: string, price: number) {
         this.id = id
-        this.product = product
+        this.title = title
         this.price = +price
     }
     
@@ -17,8 +17,8 @@ export default class Product {
         return this.id
     }
 
-    get getProduct() {
-        return this.product
+    get getTitle() {
+        return this.title
     }
 
     get getPrice() {

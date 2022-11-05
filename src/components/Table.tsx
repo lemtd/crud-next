@@ -27,7 +27,7 @@ export default function Table(props: TableProps) {
                     <tr key={product.getId}
                         className={`${i % 2 === 0? "bg-slate-200" : "bg-slate-300"}`}>
                         <td className="text-left p-4">{product.getId}</td>
-                        <td className="text-left p-4">{product.getProduct}</td>
+                        <td className="text-left p-4">{product.getTitle}</td>
                         <td className="text-left p-4">{product.getPrice}</td>
                         {showActions ? renderAction(product) : false}
                     </tr>
